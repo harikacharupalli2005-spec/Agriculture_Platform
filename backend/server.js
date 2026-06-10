@@ -140,7 +140,14 @@ app.get("/", (req, res) => {
 
 // Server
 const PORT = process.env.PORT || 5000;
+app.use((err, req, res, next) => {
+  console.error("GLOBAL ERROR:", err);
 
+  res.status(500).json({
+    message: "Server Error",
+    error: err.message,
+  });
+});
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
