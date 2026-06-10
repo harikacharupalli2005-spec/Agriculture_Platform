@@ -148,7 +148,7 @@ async function analyzeDisease(event) {
       })
     );
 
-    window.location.href = "/pages/diseaseResult.html";
+    window.location.href = "diseaseResult.html";
   } catch (err) {
     console.log("Disease frontend error:", err);
     error.innerText = err.message || "Server error. Please try again.";
