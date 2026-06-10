@@ -6,6 +6,11 @@ function previewImage() {
   const fileInput = document.getElementById("plantImage");
   const preview = document.getElementById("imagePreview");
 
+  if (!fileInput || !preview) {
+    console.log("plantImage or imagePreview id not found");
+    return;
+  }
+
   if (fileInput.files && fileInput.files[0]) {
     preview.src = URL.createObjectURL(fileInput.files[0]);
     preview.style.display = "block";
@@ -17,6 +22,16 @@ async function analyzeDisease(event) {
 
   const fileInput = document.getElementById("plantImage");
   const error = document.getElementById("diseaseError");
+
+  if (!fileInput) {
+    alert("plantImage input not found");
+    return;
+  }
+
+  if (!error) {
+    alert("diseaseError element not found");
+    return;
+  }
 
   error.innerText = "";
 
@@ -37,13 +52,15 @@ async function analyzeDisease(event) {
     });
 
     const uploadText = await uploadResponse.text();
+
     console.log("Upload status:", uploadResponse.status);
     console.log("Upload raw response:", uploadText);
 
     let uploadData;
+
     try {
       uploadData = JSON.parse(uploadText);
-    } catch {
+    } catch (err) {
       error.innerText = "Upload API returned invalid response";
       return;
     }
@@ -62,7 +79,10 @@ async function analyzeDisease(event) {
       localStorage.getItem("farmer") ||
       localStorage.getItem("userInfo");
 
-    if (!userData) {
+    console.log("Stored user:", userData);
+    console.log("All localStorage:", localStorage);
+
+    if (!userData || userData === "undefined" || userData === "null") {
       error.innerText = "Please login again";
       return;
     }
@@ -89,13 +109,15 @@ async function analyzeDisease(event) {
     });
 
     const aiText = await aiResponse.text();
+
     console.log("AI status:", aiResponse.status);
     console.log("AI raw response:", aiText);
 
     let aiData;
+
     try {
       aiData = JSON.parse(aiText);
-    } catch {
+    } catch (err) {
       error.innerText = "AI API returned invalid response";
       return;
     }
@@ -126,9 +148,9 @@ async function analyzeDisease(event) {
       })
     );
 
-window.location.href = "diseaseResult.html";
+    window.location.href = "/pages/diseaseResult.html";
   } catch (err) {
     console.log("Disease frontend error:", err);
     error.innerText = err.message || "Server error. Please try again.";
   }
-}z
+}
