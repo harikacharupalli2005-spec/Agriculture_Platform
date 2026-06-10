@@ -18,16 +18,23 @@ const predictDisease = async (req, res) => {
       });
     }
 
+    const backendUrl =
+      process.env.BACKEND_URL || "https://agriculture-platform.onrender.com";
+
+    const imageUrl = image.startsWith("http")
+      ? image
+      : `${backendUrl}${image}`;
+
     const response = await axios.post(
       `${process.env.AI_SERVICE_URL}/predict`,
       {
-        image: image,
+        image: imageUrl,
       }
     );
 
     const prediction = new DiseasePrediction({
-      userId: userId,
-      image: image,
+      userId,
+      image,
       disease: response.data.disease,
       confidence: response.data.confidence,
       solution: response.data.solution,
