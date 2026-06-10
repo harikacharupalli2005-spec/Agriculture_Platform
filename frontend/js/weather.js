@@ -1,5 +1,5 @@
 const WEATHER_API =
-  "http://localhost:5000/api/real-weather";
+  "https://agriculture-platform.onrender.com/api/real-weather";
 
 async function getWeather() {
   const city = document.getElementById("city").value.trim();

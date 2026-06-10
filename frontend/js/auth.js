@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://agriculture-platform.onrender.com/api";
 
 async function loginUser() {
   const email = document.getElementById("loginEmail").value;

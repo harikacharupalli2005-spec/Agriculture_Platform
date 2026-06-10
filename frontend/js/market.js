@@ -1,6 +1,5 @@
 const MARKET_API =
-  "http://localhost:5000/api/real-market/prices";
-
+  "https://agriculture-platform.onrender.com/api/real-market/prices";
 async function searchPrices() {
   const state = document.getElementById("state").value.trim();
   const district = document.getElementById("district").value.trim();

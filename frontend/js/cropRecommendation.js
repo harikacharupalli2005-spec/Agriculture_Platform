@@ -1,5 +1,5 @@
 const CROP_API =
-  "http://localhost:5000/api/crop-recommendation/recommend";
+  "https://agriculture-platform.onrender.com/api/crop-recommendation/recommend";
 
 async function getCropRecommendation() {
   const state = document.getElementById("state").value.trim();

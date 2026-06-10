@@ -1,6 +1,6 @@
 console.log("disease.js loaded");
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://agriculture-platform.onrender.com/api";
 
 function previewImage() {
   const fileInput = document.getElementById("plantImage");
