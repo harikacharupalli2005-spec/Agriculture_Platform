@@ -13,9 +13,7 @@ function previewImage() {
 }
 
 async function analyzeDisease(event) {
-  if (event) {
-    event.preventDefault();
-  }
+  if (event) event.preventDefault();
 
   const fileInput = document.getElementById("plantImage");
   const error = document.getElementById("diseaseError");
@@ -43,7 +41,10 @@ async function analyzeDisease(event) {
       return;
     }
 
-    const userData = localStorage.getItem("user");
+    const userData =
+      localStorage.getItem("user") ||
+      localStorage.getItem("userData") ||
+      localStorage.getItem("loggedInUser");
 
     if (!userData) {
       error.innerText = "Please login again";
@@ -52,13 +53,20 @@ async function analyzeDisease(event) {
 
     const user = JSON.parse(userData);
 
+    const userId = user.id || user._id || user.userId;
+
+    if (!userId) {
+      error.innerText = "User ID not found. Please login again.";
+      return;
+    }
+
     const aiResponse = await fetch(`${API_URL}/ai/predict`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: user.id || user._id,
+        userId: userId,
         image: uploadData.path,
       }),
     });
@@ -93,7 +101,7 @@ async function analyzeDisease(event) {
 
     window.location.href = "diseaseResult.html";
   } catch (err) {
-    console.log(err);
-    error.innerText = "Server error. Please try again.";
+    console.log("Disease frontend error:", err);
+    error.innerText = err.message || "Server error. Please try again.";
   }
 }
