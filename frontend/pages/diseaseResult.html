@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disease Result</title>
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:url('../images/disease.png') no-repeat center center/cover;
+    min-height:100vh;
+}
+
+.result-container{
+    width:90%;
+    max-width:700px;
+    margin:100px auto;
+    background:rgba(255,255,255,0.95);
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+.result-container h1{
+    color:#2e7d32;
+    margin-bottom:25px;
+}
+
+.result-card{
+    background:#f5fff5;
+    border-left:8px solid #4CAF50;
+    padding:20px;
+    border-radius:15px;
+    text-align:left;
+}
+
+.result-card p{
+    font-size:18px;
+    margin:15px 0;
+}
+
+.result-card strong{
+    color:#1b5e20;
+}
+
+.back-btn{
+    margin-top:25px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    background:#2e7d32;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.back-btn:hover{
+    background:#1b5e20;
+}
+</style>
+
+</head>
+<body>
+
+<div class="result-container">
+
+    <h1>🌿 Disease Detection Result</h1>
+
+    <div class="result-card">
+
+        <p>
+            <strong>🦠 Disease:</strong>
+            <span id="disease"></span>
+        </p>
+
+        <p>
+            <strong>📊 Confidence:</strong>
+            <span id="confidence"></span>
+        </p>
+
+        <p>
+            <strong>💊 Recommended Solution:</strong>
+            <span id="solution"></span>
+        </p>
+
+    </div>
+
+    <button
+        class="back-btn"
+        onclick="window.location.href='disease.html'">
+        Detect Another Image
+    </button>
+
+</div>
+
+<script>
+const result = JSON.parse(
+    sessionStorage.getItem("diseaseResult")
+);
+
+if(result){
+
+    document.getElementById("disease").innerText =
+        result.disease;
+
+    document.getElementById("confidence").innerText =
+        result.confidence;
+
+    document.getElementById("solution").innerText =
+        result.solution;
+
+}else{
+
+    document.getElementById("disease").innerText =
+        "No Result";
+
+    document.getElementById("confidence").innerText =
+        "-";
+
+    document.getElementById("solution").innerText =
+        "Please analyze an image first";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Detection</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="disease-page">
+
+  <nav class="navbar">
+    <div class="logo">🌾 Agriculture Platform</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="disease-container">
+    <h1>🌾 Crop Disease Detection</h1>
+    <p>Upload a plant leaf image to detect disease and treatment.</p>
+
+    <div class="upload-box">
+      <input type="file" id="plantImage" accept="image/*" onchange="previewImage()">
+
+      <img id="imagePreview" class="preview-img" style="display:none;">
+
+      <p id="diseaseError" class="error"></p>
+<button type="button" onclick="analyzeDisease(event)">
+  Analyze Disease
+</button>
+    </div>
+  </div>
+
+  <script src="../js/disease.js"></script>
+</body>
+</html>

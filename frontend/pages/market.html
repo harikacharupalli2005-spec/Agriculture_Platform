@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Prices</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="market-page">
+
+<nav class="navbar">
+  <div class="logo">🌾 Agriculture Platform</div>
+
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+  </ul>
+</nav>
+
+<div class="market-container">
+
+  <h1>💰 Real Market Prices</h1>
+  <p>Search real mandi prices by state, district, and crop.</p>
+
+  <input type="text" id="state" placeholder="State e.g. Andhra Pradesh">
+  <input type="text" id="district" placeholder="District e.g. Guntur">
+  <input type="text" id="crop" placeholder="Crop e.g. Tomato">
+
+  <button type="button" onclick="searchPrices()">
+    Search Prices
+  </button>
+
+  <p id="marketError" class="error"></p>
+
+  <div id="marketResults" class="market-list"></div>
+
+</div>
+
+<script src="../js/market.js"></script>
+
+</body>
+</html>

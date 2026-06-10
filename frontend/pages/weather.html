@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="weather-page">
+
+  <nav class="navbar">
+    <div class="logo">🌾 Agriculture Platform</div>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="weather-container">
+    <h1>🌦 Real Weather Forecast</h1>
+    <p>Check live weather, 7-day forecast and farmer advice.</p>
+
+    <input
+      type="text"
+      id="city"
+      placeholder="Enter city e.g. Guntur"
+    >
+
+    <button type="button" onclick="getWeather()">
+      Get Weather
+    </button>
+
+    <button type="button" onclick="getCurrentLocationWeather()">
+      📍 Use My Location
+    </button>
+
+    <p id="weatherError" class="error"></p>
+
+    <div id="weatherResult"></div>
+  </div>
+
+  <script src="../js/weather.js"></script>
+
+</body>
+</html>

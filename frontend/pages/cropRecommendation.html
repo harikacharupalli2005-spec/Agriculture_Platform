@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Crop Recommendation</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+</head>
+
+<body class="crop-page">
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🌾 Agriculture Platform
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+
+    </nav>
+
+    <div class="crop-container">
+
+        <h1>
+            🌱 Crop Recommendation System
+        </h1>
+
+        <p>
+            Get suitable crop recommendations
+            based on season and soil type.
+        </p>
+
+        <div class="crop-form">
+
+            <input
+                type="text"
+                id="state"
+                placeholder="Enter State"
+            >
+
+            <input
+                type="text"
+                id="district"
+                placeholder="Enter District"
+            >
+
+            <select id="season">
+                <option value="">
+                    Select Season
+                </option>
+
+                <option value="Kharif">
+                    Kharif
+                </option>
+
+                <option value="Rabi">
+                    Rabi
+                </option>
+
+                <option value="Zaid">
+                    Zaid
+                </option>
+            </select>
+
+            <select id="soilType">
+
+                <option value="">
+                    Select Soil Type
+                </option>
+
+                <option value="Black Soil">
+                    Black Soil
+                </option>
+
+                <option value="Red Soil">
+                    Red Soil
+                </option>
+
+                <option value="Alluvial Soil">
+                    Alluvial Soil
+                </option>
+
+                <option value="Laterite Soil">
+                    Laterite Soil
+                </option>
+
+            </select>
+
+            <button onclick="getCropRecommendation()">
+                Get Recommendation
+            </button>
+
+        </div>
+
+        <p id="cropError"
+           class="error">
+        </p>
+
+        <div id="cropResult">
+        </div>
+
+    </div>
+
+    <script src="../js/cropRecommendation.js"></script>
+
+</body>
+</html>

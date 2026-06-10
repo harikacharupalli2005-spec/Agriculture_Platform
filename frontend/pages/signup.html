@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="signup-page">
+
+<nav class="navbar">
+    <div class="logo">🌾 Agriculture Platform</div>
+
+    <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Signup</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+</nav>
+
+<div class="form-container">
+
+    <h2>Signup</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="text" id="phone" placeholder="Phone Number">
+
+    <input type="text" id="village" placeholder="Village">
+
+    <input type="text" id="district" placeholder="District">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+    <p id="signupError" class="error"></p>
+
+    <button onclick="signupUser()">
+        Signup
+    </button>
+
+    <button class="google-btn">
+        Continue with Google
+    </button>
+
+    <p class="signup-text">
+        Already have an account?
+        <a href="login.html">Login</a>
+    </p>
+
+</div>
+
+<script src="../js/auth.js"></script>
+
+</body>
+</html>

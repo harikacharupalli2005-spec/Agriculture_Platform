@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="login-page">
+
+  <nav class="navbar">
+    <div class="logo">🌾 Agriculture Platform</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Signup</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+  </nav>
+
+  <div class="form-container">
+    <h2>Login</h2>
+
+    <input type="email" id="loginEmail" placeholder="Enter Email">
+    <input type="password" id="loginPassword" placeholder="Enter Password">
+
+    <p id="loginError" class="error"></p>
+
+    <button onclick="loginUser()">Login</button>
+
+    <button
+  class="google-btn"
+  onclick="window.location.href='http://localhost:5000/api/auth/google'">
+  Continue with Google
+</button>
+
+    <a href="forgotPassword.html" class="forgot-link">
+  Forgot Password?
+</a>
+
+<p class="signup-text">
+  Don't have an account?
+  <a href="signup.html">Signup</a>
+</p>
+  </div>
+
+  <script src="../js/auth.js"></script>
+</body>
+</html>

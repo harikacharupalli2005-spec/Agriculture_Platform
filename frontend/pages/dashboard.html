@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+<nav class="navbar">
+  <div class="logo">🌾 Agriculture Platform</div>
+
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li><a href="login.html">Logout</a></li>
+  </ul>
+</nav>
+
+<div class="dashboard-container">
+
+  <h1>👨‍🌾 Farmer Dashboard</h1>
+  <p id="welcomeText">Welcome to your agriculture dashboard</p>
+
+  <div class="dashboard-cards">
+
+    <div class="dashboard-card" onclick="window.location.href='disease.html'">
+      <h2>🌾 Disease Detection</h2>
+      <p>Upload crop image and get disease solution.</p>
+    </div>
+
+    <div class="dashboard-card" onclick="window.location.href='market.html'">
+      <h2>💰 Market Prices</h2>
+      <p>Check real mandi prices for crops.</p>
+    </div>
+
+    <div class="dashboard-card" onclick="window.location.href='weather.html'">
+      <h2>🌦 Weather Forecast</h2>
+      <p>View real weather and farmer advice.</p>
+    </div>
+
+    <div class="dashboard-card" onclick="window.location.href='cropRecommendation.html'">
+      <h2>🌱 Crop Recommendation</h2>
+      <p>Get crop suggestions by season and soil.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../js/dashboard.js"></script>
+</body>
+</html>
