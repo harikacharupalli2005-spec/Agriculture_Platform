@@ -10,7 +10,13 @@ from io import BytesIO
 app = Flask(__name__)
 CORS(app)
 
-model = tf.keras.models.load_model("plant_disease_model.h5")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "plant_disease_model.h5")
+
+print("Current folder:", os.getcwd())
+print("Model path:", MODEL_PATH)
+print("Model exists:", os.path.exists(MODEL_PATH))
+
+model = tf.keras.models.load_model(MODEL_PATH)
 
 class_names = [
     "Potato___Early_blight",
@@ -26,8 +32,7 @@ solutions = {
 
 def preprocess_image(image):
     image = image.resize((224, 224))
-    image = np.array(image)
-    image = image / 255.0
+    image = np.array(image) / 255.0
     image = np.expand_dims(image, axis=0)
     return image
 
@@ -41,23 +46,21 @@ def predict():
         data = request.get_json()
 
         if not data or "image" not in data:
-            return jsonify({
-                "message": "Image is required"
-            }), 400
+            return jsonify({"message": "Image is required"}), 400
 
         image_value = data["image"]
 
         if image_value.startswith("http"):
-            response = requests.get(image_value)
+            response = requests.get(image_value, timeout=30)
 
             if response.status_code != 200:
                 return jsonify({
                     "message": "Failed to download image",
-                    "status": response.status_code
+                    "status": response.status_code,
+                    "image": image_value
                 }), 400
 
             image = Image.open(BytesIO(response.content)).convert("RGB")
-
         else:
             if not os.path.exists(image_value):
                 return jsonify({
@@ -68,10 +71,9 @@ def predict():
             image = Image.open(image_value).convert("RGB")
 
         processed_image = preprocess_image(image)
-
         predictions = model.predict(processed_image)
 
-        predicted_index = np.argmax(predictions[0])
+        predicted_index = int(np.argmax(predictions[0]))
         confidence = round(float(np.max(predictions[0])) * 100, 2)
 
         disease = class_names[predicted_index]
@@ -95,4 +97,5 @@ def predict():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
+    print("Starting AI service on port:", port)
     app.run(host="0.0.0.0", port=port)
