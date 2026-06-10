@@ -27,7 +27,7 @@ async function loginUser() {
     }
 
     localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+   localStorage.setItem("user", JSON.stringify(data.user || data.farmer || data.existingUser));
 
     window.location.href = "categories.html";
   } catch (err) {
