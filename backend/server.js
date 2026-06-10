@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
@@ -62,6 +63,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/disease", diseaseRoutes);
@@ -132,7 +134,7 @@ app.use(
   realMarketRoutes
 );
 app.use("/api/real-weather", realWeatherRoutes);
-app.use("/uploads", express.static("uploads"));
+
 // Test Route
 app.get("/", (req, res) => {
   res.send("Agriculture Platform Backend Running...");
