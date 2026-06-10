@@ -58,7 +58,7 @@ async function analyzeDisease(event) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: user.id,
+        userId: user.id || user._id,
         image: uploadData.path,
       }),
     });
@@ -91,9 +91,7 @@ async function analyzeDisease(event) {
       })
     );
 
-    window.location.href =
-      "http://127.0.0.1:5500/frontend/pages/diseaseResult.html";
-
+    window.location.href = "diseaseResult.html";
   } catch (err) {
     console.log(err);
     error.innerText = "Server error. Please try again.";
