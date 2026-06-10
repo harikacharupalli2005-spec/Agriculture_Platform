@@ -7,13 +7,14 @@ const getRealWeather = async (req, res) => {
     let location = {};
 
     if (lat && lon) {
+
       const geoInfo = await axios.get(
         "https://nominatim.openstreetmap.org/reverse",
         {
           params: {
             format: "json",
-            lat: lat,
-            lon: lon,
+            lat,
+            lon,
           },
           headers: {
             "User-Agent": "Agriculture-Platform",
@@ -35,11 +36,13 @@ const getRealWeather = async (req, res) => {
         admin1: address.state || "",
         country: address.country || "",
       };
+
     } else {
+
       if (!city) {
         return res.status(400).json({
           success: false,
-          message: "City or location is required",
+          message: "City is required",
         });
       }
 
@@ -55,7 +58,10 @@ const getRealWeather = async (req, res) => {
         }
       );
 
-      if (!geoResponse.data.results || geoResponse.data.results.length === 0) {
+      if (
+        !geoResponse.data.results ||
+        geoResponse.data.results.length === 0
+      ) {
         return res.status(404).json({
           success: false,
           message: "City not found",
@@ -84,11 +90,12 @@ const getRealWeather = async (req, res) => {
           daily:
             "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max",
           timezone: "auto",
+          forecast_days: 7,
         },
       }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       location: {
         city: location.name,
@@ -100,10 +107,15 @@ const getRealWeather = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
+
+    console.error("Weather Error:", error.response?.data || error.message);
+
+    return res.status(500).json({
       success: false,
       message: "Failed to fetch weather",
-      error: error.message,
+      error:
+        error.response?.data ||
+        error.message,
     });
   }
 };
