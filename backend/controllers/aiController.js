@@ -5,7 +5,7 @@ const DiseasePrediction = require("../models/DiseasePrediction");
 const predictDisease = async (req, res) => {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:5001/predict",
+      `${process.env.AI_SERVICE_URL}/predict`,
       {
         image: req.body.image,
       }
@@ -27,8 +27,8 @@ const predictDisease = async (req, res) => {
     });
   } catch (error) {
     console.error("AI ERROR FULL:");
-console.error(error.response?.data);
-console.error(error.message);
+    console.error(error.response?.data);
+    console.error(error.message);
 
     res.status(500).json({
       message: "AI Service Error",
@@ -37,7 +37,7 @@ console.error(error.message);
   }
 };
 
-// Get prediction history of a user
+// Get prediction history
 const getPredictionHistory = async (req, res) => {
   try {
     const predictions = await DiseasePrediction.find({
