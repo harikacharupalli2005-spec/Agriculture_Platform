@@ -25,7 +25,6 @@ function getCurrentLocationWeather() {
     (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
       fetchWeather(`${WEATHER_API}?lat=${lat}&lon=${lon}`);
     },
     () => {
@@ -49,12 +48,20 @@ async function fetchWeather(url) {
 
     result.innerHTML = "";
 
-    if (!data.success) {
-      showError(data.message || "Weather data not found");
+    if (response.status === 429) {
+      showError("Weather service limit reached. Please try again after some time.");
+      return;
+    }
+
+    if (!response.ok || !data.success) {
+      showError(data.message || data.error || "Weather data not found");
       return;
     }
 
     const current = data.current;
+    const daily = data.daily;
+    const location = data.location;
+
     const advice = getFarmerAdvice(current);
     const icon = getWeatherIcon(current.weather_code);
 
@@ -63,16 +70,15 @@ async function fetchWeather(url) {
       <div class="forecast-list">
     `;
 
-    data.daily.time.forEach((day, index) => {
-      const dailyIcon =
-        getWeatherIcon(data.daily.weather_code[index]);
+    daily.time.forEach((day, index) => {
+      const dailyIcon = getWeatherIcon(daily.weather_code[index]);
 
       forecastHTML += `
-        <div class="forecast-card ${getForecastClass(data.daily.precipitation_probability_max[index])}">
+        <div class="forecast-card ${getForecastClass(daily.precipitation_probability_max[index])}">
           <h4>${dailyIcon} ${day}</h4>
-          <p>🌡 Max: ${data.daily.temperature_2m_max[index]} °C</p>
-          <p>❄ Min: ${data.daily.temperature_2m_min[index]} °C</p>
-          <p>🌧 Rain Chance: ${data.daily.precipitation_probability_max[index]}%</p>
+          <p>🌡 Max: ${daily.temperature_2m_max[index]} °C</p>
+          <p>❄ Min: ${daily.temperature_2m_min[index]} °C</p>
+          <p>🌧 Rain Chance: ${daily.precipitation_probability_max[index]}%</p>
         </div>
       `;
     });
@@ -81,9 +87,9 @@ async function fetchWeather(url) {
 
     result.innerHTML = `
       <div class="weather-card">
-        <h2>${icon} ${data.location.city}</h2>
-        <p><strong>State:</strong> ${data.location.state || "-"}</p>
-        <p><strong>Country:</strong> ${data.location.country || "-"}</p>
+        <h2>${icon} ${location.city || "Your Location"}</h2>
+        <p><strong>State:</strong> ${location.state || "-"}</p>
+        <p><strong>Country:</strong> ${location.country || "-"}</p>
 
         <p><strong>🌡 Temperature:</strong> ${current.temperature_2m} °C</p>
         <p><strong>💧 Humidity:</strong> ${current.relative_humidity_2m} %</p>
@@ -99,8 +105,8 @@ async function fetchWeather(url) {
       ${forecastHTML}
     `;
   } catch (err) {
-    console.log(err);
-    showError("Failed to fetch weather");
+    console.log("Weather frontend error:", err);
+    showError("Failed to fetch weather. Please try again later.");
   }
 }
 
