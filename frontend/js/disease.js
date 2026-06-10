@@ -131,4 +131,4 @@ window.location.href = "diseaseResult.html";
     console.log("Disease frontend error:", err);
     error.innerText = err.message || "Server error. Please try again.";
   }
-}
+}z
