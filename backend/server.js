@@ -132,6 +132,7 @@ app.use(
   realMarketRoutes
 );
 app.use("/api/real-weather", realWeatherRoutes);
+app.use("/uploads", express.static("uploads"));
 // Test Route
 app.get("/", (req, res) => {
   res.send("Agriculture Platform Backend Running...");
