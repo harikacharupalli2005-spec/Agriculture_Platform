@@ -22,7 +22,7 @@ router.post("/upload", upload.single("image"), (req, res) => {
     res.status(200).json({
       message: "Image uploaded successfully",
       image: req.file.filename,
-      path: req.file.path,
+       path: `/uploads/${req.file.filename}`,,
     });
   } catch (error) {
     res.status(500).json({
