@@ -2,7 +2,6 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const sendEmail = require("../utils/sendEmail");
 
 // Signup
 const registerUser = async (req, res) => {
@@ -74,13 +73,9 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      {
-        id: user._id,
-      },
+      { id: user._id },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
+      { expiresIn: "7d" }
     );
 
     res.status(200).json({
@@ -103,21 +98,9 @@ const loginUser = async (req, res) => {
 
 // Test Email
 const testEmail = async (req, res) => {
-  try {
-    await sendEmail(
-      process.env.EMAIL_USER,
-      "Agriculture Platform Test",
-      "Congratulations! Your email configuration is working."
-    );
-
-    res.status(200).json({
-      message: "Test Email Sent Successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+  res.status(200).json({
+    message: "Email sending disabled. Use resetLink from forgot-password response.",
+  });
 };
 
 // Forgot Password
@@ -147,18 +130,13 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     const frontendUrl =
-      process.env.FRONTEND_URL || "https://YOUR-NETLIFY-LINK.netlify.app";
+      process.env.FRONTEND_URL || "https://your-netlify-site.netlify.app";
 
     const resetLink = `${frontendUrl}/pages/resetPassword.html?token=${resetToken}`;
 
-    await sendEmail(
-      user.email,
-      "Password Reset Request",
-      `Click the link below to reset your password:\n\n${resetLink}`
-    );
-
     res.status(200).json({
-      message: "Password reset link sent to email",
+      message: "Password reset link generated",
+      resetLink,
     });
   } catch (error) {
     res.status(500).json({
