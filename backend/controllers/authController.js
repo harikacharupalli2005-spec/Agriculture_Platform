@@ -88,6 +88,7 @@ const loginUser = async (req, res) => {
       token,
       user: {
         id: user._id,
+        _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -104,7 +105,7 @@ const loginUser = async (req, res) => {
 const testEmail = async (req, res) => {
   try {
     await sendEmail(
-      "g6312130@gmail.com",
+      process.env.EMAIL_USER,
       "Agriculture Platform Test",
       "Congratulations! Your email configuration is working."
     );
@@ -145,7 +146,10 @@ const forgotPassword = async (req, res) => {
 
     await user.save();
 
-    const resetLink = `http://127.0.0.1:5500/frontend/pages/resetPassword.html?token=${resetToken}`;
+    const frontendUrl =
+      process.env.FRONTEND_URL || "https://YOUR-NETLIFY-LINK.netlify.app";
+
+    const resetLink = `${frontendUrl}/pages/resetPassword.html?token=${resetToken}`;
 
     await sendEmail(
       user.email,
@@ -162,6 +166,8 @@ const forgotPassword = async (req, res) => {
     });
   }
 };
+
+// Reset Password
 const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
@@ -202,10 +208,11 @@ const resetPassword = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   registerUser,
   loginUser,
   testEmail,
   forgotPassword,
-   resetPassword,
+  resetPassword,
 };
