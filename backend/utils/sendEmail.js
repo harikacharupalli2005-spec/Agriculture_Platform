@@ -11,13 +11,13 @@ const sendEmail = async (to, subject, text) => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-    connectionTimeout: 30000,
-    greetingTimeout: 30000,
-    socketTimeout: 30000,
+    connectionTimeout: 60000,
+    greetingTimeout: 60000,
+    socketTimeout: 60000,
   });
 
   await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+    from: `"Agriculture Platform" <${process.env.EMAIL_USER}>`,
     to,
     subject,
     text,
