@@ -1,16 +1,20 @@
 {
   "name": "Agriculture Platform",
-  "short_name": "AgriTech",
+  "short_name": "AgriPlatform",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#2E7D32",
   "background_color": "#ffffff",
+  "theme_color": "#2E7D32",
   "icons": [
     {
-      "src": "/images/agri-icon.png",
+      "src": "images/app-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/app-icon.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }

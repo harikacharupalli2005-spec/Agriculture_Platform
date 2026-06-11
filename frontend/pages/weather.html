@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather Forecast</title>
+   <!-- App Icon -->
+    <link rel="icon" type="image/png" href="images/app-icon.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#2E7D32">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -43,6 +51,16 @@
   </div>
 
   <script src="../js/weather.js"></script>
-
+<script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js")
+                .then(() => {
+                    console.log("Service Worker Registered");
+                })
+                .catch((error) => {
+                    console.log("Service Worker Error:", error);
+                });
+        }
+    </script>
 </body>
 </html>
